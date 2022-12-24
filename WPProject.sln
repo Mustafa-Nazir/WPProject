@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPWebApp", "WPWebApp\WPWebApp.csproj", "{00F29747-391B-43BE-8999-489197FEC892}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{E5720298-7D62-4F0E-8E88-AECF4A406135}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{00F29747-391B-43BE-8999-489197FEC892}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00F29747-391B-43BE-8999-489197FEC892}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00F29747-391B-43BE-8999-489197FEC892}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5720298-7D62-4F0E-8E88-AECF4A406135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5720298-7D62-4F0E-8E88-AECF4A406135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5720298-7D62-4F0E-8E88-AECF4A406135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5720298-7D62-4F0E-8E88-AECF4A406135}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
