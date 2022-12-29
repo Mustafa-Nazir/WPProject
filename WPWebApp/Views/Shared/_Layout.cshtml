@@ -22,10 +22,12 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <div class="input-group">
-                        <hr class="w-25 opacity-0" />
-                        <span class="input-group-text rounded-start" id="basic-addon1">@@</span>
-                        <input type="text" class="form-control rounded-end" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                        <hr class="w-25 opacity-0" />
+                        <form class="input-group" action="~/byUserName" method="get">
+                            <hr class="w-25 opacity-0" />
+                            <button class="input-group-text rounded-start" type="submit" id="basic-addon1">@@</button>
+                            <input name="userName" value="" type="text" class="form-control rounded-end" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                            <hr class="w-25 opacity-0" />
+                        </form>
                     </div>
                     <partial name="_LoginPartial" />
                 </div>

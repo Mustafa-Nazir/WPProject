@@ -17,6 +17,7 @@ namespace Business.Abstract
         IDataResult<int> GetFollowingCount(string id);
         IDataResult<string> GetUserIdByName(string name);
         IResult AddUserPP(ApplicationUser user , IFormFile file);
+        IDataResult<ApplicationUser> GetUserByName(string name);
 
     }
 }

@@ -82,6 +82,13 @@ namespace Business.Concrete
 
         }
 
+        public IDataResult<ApplicationUser> GetUserByName(string name)
+        {
+            string id = GetUserIdByName(name).Data;
+            ApplicationUser user = GetById(id).Data;
+            return new SuccessDataResult<ApplicationUser>(user);
+        }
+
         public IDataResult<string> GetUserIdByName(string name)
         {
             string id = _applicationUserDal.Get(u => u.UserName == name).Id;
