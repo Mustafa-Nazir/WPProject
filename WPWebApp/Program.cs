@@ -1,3 +1,6 @@
+using Business.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +15,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDependencyResolvers(new IServiceModule[] {
+                new BusinessModule()
+            });
 
 var app = builder.Build();
 
