@@ -1,7 +1,11 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Bussiness;
+using Core.Utilities.Helpers.FileHelpers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,17 +19,29 @@ namespace Business.Concrete
         IApplicationUserDal _applicationUserDal;
         IImageService _imageService;
         IFollowerService _followerService;
+        IFileHelper _fileHelper;
+        UserManager<ApplicationUser> _userManager;
 
-        public ApplicationUserManager(IApplicationUserDal applicationUserDal , IImageService imageService, IFollowerService followerService)
+        public ApplicationUserManager(IApplicationUserDal applicationUserDal , IImageService imageService, IFollowerService followerService , IFileHelper fileHelper)
         {
             _applicationUserDal = applicationUserDal;
             _imageService = imageService;
             _followerService = followerService;
+            _fileHelper = fileHelper;
         }
 
         public IResult Add(ApplicationUser entity)
         {
             _applicationUserDal.Add(entity);
+            return new SuccessResult();
+        }
+
+        public IResult AddUserPP(ApplicationUser user, IFormFile file)
+        {
+
+            string imagePath = _fileHelper.IsFileEmpty(file) ? "default.png" : _fileHelper.Upload(file, @"wwwroot\images\pp\");
+            user.PPPath = imagePath;
+            _applicationUserDal.Update(user);
             return new SuccessResult();
         }
 
@@ -69,7 +85,7 @@ namespace Business.Concrete
         public IDataResult<string> GetUserIdByName(string name)
         {
             string id = _applicationUserDal.Get(u => u.UserName == name).Id;
-            return new SuccessDataResult<string>(id);
+            return new SuccessDataResult<string>(id,"");
         }
 
         public IResult Update(ApplicationUser entity)
@@ -77,5 +93,6 @@ namespace Business.Concrete
             _applicationUserDal.Update(entity);
             return new SuccessResult();
         }
+        
     }
 }

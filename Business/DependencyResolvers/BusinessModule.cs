@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using Core.Utilities.Helpers.FileHelpers;
 using Core.Utilities.IoC;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -23,6 +24,7 @@ namespace Business.DependencyResolvers
             serviceCollection.AddSingleton<IFollowerService, FollowerManager>();
             serviceCollection.AddSingleton<IImageDal, EfImageDal>();
             serviceCollection.AddSingleton<IImageService, ImageManager>();
+            serviceCollection.AddSingleton<IFileHelper, FileHelper>();
         }
     }
 }
