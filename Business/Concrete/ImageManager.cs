@@ -43,6 +43,12 @@ namespace Business.Concrete
             return new SuccessDataResult<Image>(image);
         }
 
+        public IDataResult<List<Image>> GetByUserId(string id)
+        {
+            List<Image> result = _imageDal.GetAll(i => i.UserId == id);
+            return new SuccessDataResult<List<Image>>(result);
+        }
+
         public IResult Update(Image entity)
         {
             _imageDal.Update(entity);

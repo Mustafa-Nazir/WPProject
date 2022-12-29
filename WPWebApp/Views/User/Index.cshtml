@@ -2,7 +2,13 @@
     ViewData["Title"] = "User Page";
 }
 
-
+@using Microsoft.AspNetCore.Identity;    
+@using Business.Abstract;
+@inject SignInManager<IdentityUser> _signInManager;
+@inject IApplicationUserService _applicationUserService;
+@{
+    string id = _applicationUserService.GetUserIdByName(User.Identity.Name).Data;
+}
 
 <div class="container h-50">
     <div class="row h-100">
@@ -11,12 +17,12 @@
         </div>
         <div id="user-info" class="col-8 d-flex justify-content-center" style="flex-direction:column">
             <div class="d-flex justify-content-around">
-                <div>Name</div>
+                <div>@User?.Identity?.Name</div>
                 <div>Follow</div>
             </div>
             <hr class="opacity-0" />
             <div class="d-flex justify-content-around">
-                <div>Gönderi</div>
+                <div>@_applicationUserService.GetPostCount(id).Data Gönderi</div>
                 <div>Takipçi</div>
                 <div>Takip</div>
             </div>

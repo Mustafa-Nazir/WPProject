@@ -11,6 +11,10 @@
     <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.cs" />
     <Compile Remove="Data\Migrations\00000000000000_CreateIdentitySchema.Designer.cs" />
     <Compile Remove="Data\Migrations\ApplicationDbContextModelSnapshot.cs" />
+    <Compile Remove="Migrations\20221224185853_Initialize.Designer.cs" />
+    <Compile Remove="Migrations\20221229061627_ChangedType.Designer.cs" />
+    <Compile Remove="Migrations\20221229063411_ChangedType.cs" />
+    <Compile Remove="Migrations\20221229063411_ChangedType.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,6 +43,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
   </ItemGroup>
 

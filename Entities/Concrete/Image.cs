@@ -13,7 +13,8 @@ namespace Entities.Concrete
         [Key]
         public int Id { get; set; }
         [Required]
-        public int UserId { get; set; }
+        [StringLength(450)]
+        public string UserId { get; set; }
         [Required]
         public string? Path { get; set; }
         [StringLength(100)]

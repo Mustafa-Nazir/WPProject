@@ -12,10 +12,12 @@ namespace Entities.Concrete
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(450)]
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
+        [StringLength(450)]
         [Required]
-        public int FollowedUserId { get; set; }
+        public string FollowedUserId { get; set; }
         
     }
 

@@ -43,6 +43,18 @@ namespace Business.Concrete
             return new SuccessDataResult<Follower>(result);
         }
 
+        public IDataResult<List<Follower>> GetFollowerByFollowedId(string id)
+        {
+            List<Follower> result = _followerDal.GetAll(f => f.FollowedUserId == id);
+            return new SuccessDataResult<List<Follower>>(result);
+        }
+
+        public IDataResult<List<Follower>> GetFollowingByUserId(string id)
+        {
+            List<Follower> result = _followerDal.GetAll(f => f.UserId == id);
+            return new SuccessDataResult<List<Follower>>(result);
+        }
+
         public IResult Update(Follower entity)
         {
             _followerDal.Update(entity);

@@ -11,5 +11,10 @@ namespace Business.Abstract
 {
     public interface IApplicationUserService:IBaseService<ApplicationUser , string>
     {
+        IDataResult<int> GetPostCount(string id);
+        IDataResult<int> GetFollowerCount(string id);
+        IDataResult<int> GetFollowingCount(string id);
+        IDataResult<string> GetUserIdByName(string name);
+
     }
 }
