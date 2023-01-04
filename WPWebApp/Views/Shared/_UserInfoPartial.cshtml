@@ -5,10 +5,13 @@
 @using Business.Abstract;
 @inject SignInManager<ApplicationUser> _signInManager;
 @inject IApplicationUserService _applicationUserService;
+@inject IFollowerService _followService;
+@inject IImageService _imageService;
 @{
     string id = _applicationUserService.GetUserIdByName(Model.UserName).Data;
     string? pp = _applicationUserService.GetById(id).Data.PPPath;
     pp = "images/pp/" + pp;
+    string _id = _applicationUserService.GetUserIdByName(User.Identity.Name).Data;
 }
 
 <div class="container h-50">
@@ -25,7 +28,12 @@
                         <a class="nav-link d-flex text-info" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="material-icons">settings</i></a>
                     }
                     else{
-                        <div class="btn btn-primary w-50">Follow</div>
+                        if(!_followService.IsFollow(_id , id).Success){
+                            <button class="btn btn-primary w-50">Follow</button>
+                        }
+                        else{
+                            <button class="btn btn-light w-50">UnFollow</button>
+                        }
                     }
                 </div>
             </div>
@@ -42,13 +50,25 @@
 </div>
 <hr class="w-75 m-auto" />
 <div class="row mt-2 posts justify-content-center">
-    <div class="col-4 post text-center">
-        <img class="" src="@Url.Content("images/pp/default.png")" />
-    </div>
-    <div class="col-4 post text-center">
-        <img class="" src="@Url.Content("images/pp/default.png")" />
-    </div>
-    <div class="col-4 post text-center">
-        <img class="" src="@Url.Content("images/pp/default.png")" />
-    </div>
+    @{
+        List<Image> images = _imageService.GetByUserId(id).Data;
+        foreach (Image image in images)
+        {
+                <div class="col-4 post text-center">
+                    <img class="" src="@Url.Content("images/uploads/" + image.Path)" />
+                </div>
+        }
+    }
+    
 </div>
+
+@*@{
+    string FollowUser(){
+        _followService.Add(new Follower{UserId=_id , FollowedUserId=id});
+        return "";
+    }
+
+    void UnFollowUser(){
+        _followService.DeleteByUserAndFollowedUserId(_id, id);
+    }
+}*@
