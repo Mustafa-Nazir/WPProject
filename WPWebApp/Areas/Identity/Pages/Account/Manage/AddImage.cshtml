@@ -1,0 +1,20 @@
+﻿@page
+@model WPWebApp.Areas.Identity.Pages.Account.Manage.AddImageModel
+@{
+}
+
+<form id="addImageForm" method="post" enctype="multipart/form-data">
+    <hr class="opacity-0 m-1" />
+    <div class="form-floating">
+        <input asp-for="Input.Description" class="form-control" autocomplete="Description" aria-required="false" />
+        <label asp-for="Input.Description"></label>
+        <span asp-validation-for="Input.Description" class="text-danger"></span>
+    </div>
+    <hr class="opacity-0 m-1" />
+    <div class="form-floating">
+        <input asp-for="Input.ImageFile" accept="image/*" aria-required="true" />
+        <span asp-validation-for="Input.ImageFile" class="text-danger"></span>
+    </div>
+    <hr class="opacity-0 m-1" />
+    <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Upload</button>
+</form>

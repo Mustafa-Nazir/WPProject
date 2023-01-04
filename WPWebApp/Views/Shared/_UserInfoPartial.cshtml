@@ -29,10 +29,10 @@
                     }
                     else{
                         if(!_followService.IsFollow(_id , id).Success){
-                            <button class="btn btn-primary w-50">Follow</button>
+                            <a class="btn btn-primary w-50" href="@Url.Action("FollowUser","User",new {UserId=_id , FollowedUserId=id , FollowedUser=Model.UserName})">Follow</a>
                         }
                         else{
-                            <button class="btn btn-light w-50">UnFollow</button>
+                            <a class="btn btn-light w-50" href="@Url.Action("UnFollowUser","User",new {UserId=_id , FollowedUserId=id , FollowedUser=Model.UserName})">UnFollow</a>
                         }
                     }
                 </div>

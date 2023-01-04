@@ -1,7 +1,9 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Helpers.FileHelpers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,16 +15,26 @@ namespace Business.Concrete
     public class ImageManager : IImageService
     {
         IImageDal _imageDal;
+        IFileHelper _fileHelper;
 
-        public ImageManager(IImageDal imageDal)
+        public ImageManager(IImageDal imageDal , IFileHelper fileHelper)
         {
             _imageDal = imageDal;
+            _fileHelper = fileHelper;
         }
 
         public IResult Add(Image entity)
         {
             _imageDal.Add(entity);
             return new SuccessResult();
+        }
+
+        public IResult AddImage(Image image, IFormFile file)
+        {
+            if (_fileHelper.IsFileEmpty(file)) return new ErrorResult();
+            string imagePath = _fileHelper.Upload(file, @"wwwroot\images\uploads\");
+            image.Path = imagePath;
+            return Add(image);
         }
 
         public IResult Delete(Image entity)

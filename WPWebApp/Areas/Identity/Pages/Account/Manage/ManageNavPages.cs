@@ -60,6 +60,8 @@ namespace  WPWebApp.Areas.Identity.Pages.Account.Manage
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
+        public static string AddImage => "AddImage";
+        public static string AddImageNavClass(ViewContext viewContext) => PageNavClass(viewContext, AddImage);
 
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used

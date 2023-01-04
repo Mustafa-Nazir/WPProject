@@ -1,8 +1,28 @@
-﻿@{
+﻿@using Business.Abstract
+@{
     ViewData["Title"] = "Home Page";
 }
+@inject IFollowerService _followerService;
+@inject IApplicationUserService _applicationUserSerice;
+@{
+    string id = _applicationUserSerice.GetUserIdByName(User.Identity.Name).Data;
+    var images = _followerService.GetFollowedUsers(id).Data;
+}
+<div class="d-flex justify-content-center flex-column align-items-center">
+    @foreach (var image in images)
+    {
+        <div class="card">
+            <div class="card-header d-flex justify-content-around">
+                <img style="height:4rem" class="rounded-circle user-pp" src="@Url.Content("images/pp/" +image.PP)" />
+                <hr class="opacity-0" style="width:10%" />
+                <p class="m-0 d-flex align-items-center">@image.Email</p>
+            </div>
+            <div class="card-body">
+                <img class="" src="@Url.Content("images/uploads/" + @image.Image)" />
+            </div>
+        </div>
+        <hr />
+    }
+    
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

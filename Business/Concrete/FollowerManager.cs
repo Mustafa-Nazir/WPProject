@@ -2,6 +2,7 @@
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,13 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        public IResult DeleteByUserAndFollowedUserId(string userId, string followedUserId)
+        {
+            Follower result = _followerDal.Get(f => f.UserId == userId && f.FollowedUserId == followedUserId);
+            _followerDal.Delete(result);
+            return new SuccessResult();
+        }
+
         public IDataResult<List<Follower>> GetAll()
         {
             List<Follower> results = _followerDal.GetAll();
@@ -43,6 +51,12 @@ namespace Business.Concrete
             return new SuccessDataResult<Follower>(result);
         }
 
+        public IDataResult<List<FollowedUserDto>> GetFollowedUsers(string currentUserId)
+        {
+            var result = _followerDal.GetFollowedUserDto(currentUserId);
+            return new SuccessDataResult<List<FollowedUserDto>>(result);
+        }
+
         public IDataResult<List<Follower>> GetFollowerByFollowedId(string id)
         {
             List<Follower> result = _followerDal.GetAll(f => f.FollowedUserId == id);
@@ -53,6 +67,13 @@ namespace Business.Concrete
         {
             List<Follower> result = _followerDal.GetAll(f => f.UserId == id);
             return new SuccessDataResult<List<Follower>>(result);
+        }
+
+        public IResult IsFollow(string userId, string followedUserId)
+        {
+            Follower result = _followerDal.Get(f => f.UserId == userId && f.FollowedUserId == followedUserId);
+            if (result == null) return new ErrorResult();
+            return new SuccessResult();
         }
 
         public IResult Update(Follower entity)

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using System.Security.Cryptography;
 
 namespace WPWebApp.Controllers
 {
@@ -14,11 +15,16 @@ namespace WPWebApp.Controllers
 
         SignInManager<ApplicationUser> _signInManager;
         IApplicationUserService _applicationUserService;
+        IFollowerService _followerService;
 
-        public UserController(SignInManager<ApplicationUser> signInManager, IApplicationUserService applicationUserService)
+        public UserController
+            (SignInManager<ApplicationUser> signInManager, 
+            IApplicationUserService applicationUserService,
+            IFollowerService followerService)
         {
             _signInManager = signInManager;
-            _applicationUserService=applicationUserService;
+            _applicationUserService = applicationUserService;
+            _followerService = followerService; 
         }
 
         public IActionResult Index()
@@ -41,6 +47,19 @@ namespace WPWebApp.Controllers
                 return View(user);
             }
             return Redirect("Identity/Account/Login");
+        }
+
+        public IActionResult FollowUser(string UserId , string FollowedUserId ,string FollowedUser)
+        {
+            _followerService.Add(new Follower { UserId = UserId, FollowedUserId = FollowedUserId });
+            return RedirectToAction("", "byUserName", new { userName = FollowedUser });
+        }
+
+        public IActionResult UnFollowUser(string UserId, string FollowedUserId, string FollowedUser)
+        {
+            _followerService.DeleteByUserAndFollowedUserId(UserId, FollowedUserId);
+            return RedirectToAction("", "byUserName", new { userName = FollowedUser });
+
         }
     }
 }
