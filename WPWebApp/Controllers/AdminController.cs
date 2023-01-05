@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Text.Encodings.Web;
 using System.Text;
 using WPWebApp.Areas.Identity.Pages.Account;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace WPWebApp.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private readonly IApplicationUserService _userService;
