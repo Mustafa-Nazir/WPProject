@@ -3,7 +3,11 @@ using Core.Extensions;
 using Core.Utilities.IoC;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Globalization;
 using WPWebApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,11 +15,23 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>();
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddLocalization(options =>
+{
+    options.ResourcesPath = "Resources";
+});
+
+var supportedCultures = new List<CultureInfo>
+{
+     new CultureInfo("tr-TR"),
+     new CultureInfo("en-US"),
+};
 
 builder.Services.AddDependencyResolvers(new IServiceModule[] {
                 new BusinessModule()
@@ -39,6 +55,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures,
+    DefaultRequestCulture = new RequestCulture("en-US")
+});
 
 app.UseAuthentication();
 app.UseAuthorization();

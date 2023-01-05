@@ -15,6 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\Views.Shared._UserInfoPartial.en-US.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\Views.Shared._UserInfoPartial.en-US.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </None>
     <None Include="Views\User\Index.cshtml" />
   </ItemGroup>
 
@@ -36,6 +43,12 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Views.Shared._UserInfoPartial.tr-TR.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

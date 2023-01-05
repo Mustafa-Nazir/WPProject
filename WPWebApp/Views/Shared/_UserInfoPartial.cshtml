@@ -29,10 +29,10 @@
                     }
                     else{
                         if(!_followService.IsFollow(_id , id).Success){
-                            <a class="btn btn-primary w-50" href="@Url.Action("FollowUser","User",new {UserId=_id , FollowedUserId=id , FollowedUser=Model.UserName})">Follow</a>
+                            <a class="btn btn-primary w-50" href="@Url.Action("FollowUser","User",new {UserId=_id , FollowedUserId=id , FollowedUser=Model.UserName})">@Localizer["Follow"]</a>
                         }
                         else{
-                            <a class="btn btn-light w-50" href="@Url.Action("UnFollowUser","User",new {UserId=_id , FollowedUserId=id , FollowedUser=Model.UserName})">UnFollow</a>
+                            <a class="btn btn-light w-50" href="@Url.Action("UnFollowUser","User",new {UserId=_id , FollowedUserId=id , FollowedUser=Model.UserName})">@Localizer["UnFollow"]</a>
                         }
                     }
                 </div>
@@ -40,9 +40,9 @@
             <hr class="opacity-0" />
             <div class="d-flex justify-content-around w-75">
                 <hr class="opacity-0" style="width:10%" />
-                <div>@_applicationUserService.GetPostCount(id).Data Gönderi</div>
-                <div>@_applicationUserService.GetFollowerCount(id).Data Takipçi</div>
-                <div>@_applicationUserService.GetFollowingCount(id).Data Takip</div>
+                <div>@_applicationUserService.GetPostCount(id).Data @Localizer["Post"]</div>
+                <div>@_applicationUserService.GetFollowerCount(id).Data @Localizer["Followers"]</div>
+                <div>@_applicationUserService.GetFollowingCount(id).Data @Localizer["Following"]</div>
                 <hr class="opacity-0" style="width:10%" />
             </div>
         </div>
