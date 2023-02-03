@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Results;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -51,8 +52,29 @@ namespace WPWebApp.Controllers
         public IActionResult AddEmojiToImage(ImageDetail imageDetail)
         {
             var result = _imageDetailService.Add(imageDetail);
+            return JsonConverter(result);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteEmojiFromImage(ImageDetail imageDetail)
+        {
+            var _imageDetail = _imageDetailService.GetImageDetailByImageEmojiUserId(imageDetail).Data;
+            var result = _imageDetailService.Delete(_imageDetail);
+            return JsonConverter(result);
+        }
+
+        [HttpGet]
+        public IActionResult ImageEmojiControl(ImageDetail imageDetail)
+        {
+            var result = _imageDetailService.ImageEmojiControl(imageDetail);
+            return JsonConverter(result);
+        }
+
+        private IActionResult JsonConverter(Core.Utilities.Results.IResult result)
+        {
             var json = JsonConvert.SerializeObject(result);
             return Json(json);
         }
+
     }
 }

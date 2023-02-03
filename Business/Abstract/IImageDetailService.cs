@@ -13,5 +13,7 @@ namespace Business.Abstract
     public interface IImageDetailService:IBaseService<ImageDetail , int>
     {
         public IDataResult<List<ImageEmojiDetailDto>> GetEmojiAmountByImageId(int ImageId);
+        public IResult ImageEmojiControl(ImageDetail _imageDetail);
+        public IDataResult<ImageDetail> GetImageDetailByImageEmojiUserId(ImageDetail _imageDetail);
     }
 }

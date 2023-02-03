@@ -57,11 +57,17 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        private IResult ImageEmojiControl(ImageDetail _imageDetail)
+        public IResult ImageEmojiControl(ImageDetail _imageDetail)
         {
             var result = _imageDetailDal.Get(i => i.ImageId == _imageDetail.ImageId && i.UserId == _imageDetail.UserId && i.EmojiId == _imageDetail.EmojiId);
             if (result == null) return new SuccessResult();
             return new ErrorResult();
+        }
+
+        public IDataResult<ImageDetail> GetImageDetailByImageEmojiUserId(ImageDetail _imageDetail)
+        {
+            var result = _imageDetailDal.Get(i => i.ImageId == _imageDetail.ImageId && i.UserId == _imageDetail.UserId && i.EmojiId == _imageDetail.EmojiId);
+            return new SuccessDataResult<ImageDetail>(result);
         }
     }
 }
