@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace Entities.DTOs
 {
-    public class FollowedUserDto:IDto
+    public class ImageEmojiDetailDto:IDto
     {
-        public string Email { get; set; }
-        public string PP { get; set; }
-        public string Image { get; set; }
         public int ImageId { get; set; }
-
-
+        public int EmojiId { get; set; }
+        public int Amount { get; set; }
+        public string Path { get; set; }
     }
 }

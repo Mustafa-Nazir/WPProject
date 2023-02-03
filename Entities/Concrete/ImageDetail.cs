@@ -16,5 +16,7 @@ namespace Entities.Concrete
         public int ImageId { get; set; }
         [Required]
         public int EmojiId { get; set; }
+        [Required]
+        public string UserId { get; set; }
     }
 }

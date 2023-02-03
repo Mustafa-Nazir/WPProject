@@ -63,7 +63,7 @@ namespace WPWebApp.Controllers
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 
                 
-                await _signInManager.SignInAsync(user, isPersistent: false);
+                //await _signInManager.SignInAsync(user, isPersistent: false);
                 
             }
 

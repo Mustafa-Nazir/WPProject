@@ -62,13 +62,3 @@
     
 </div>
 
-@*@{
-    string FollowUser(){
-        _followService.Add(new Follower{UserId=_id , FollowedUserId=id});
-        return "";
-    }
-
-    void UnFollowUser(){
-        _followService.DeleteByUserAndFollowedUserId(_id, id);
-    }
-}*@

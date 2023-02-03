@@ -1,5 +1,7 @@
 ﻿using Core.Utilities.Bussiness;
+using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +12,6 @@ namespace Business.Abstract
 {
     public interface IImageDetailService:IBaseService<ImageDetail , int>
     {
+        public IDataResult<List<ImageEmojiDetailDto>> GetEmojiAmountByImageId(int ImageId);
     }
 }

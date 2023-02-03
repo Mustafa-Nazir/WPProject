@@ -1,16 +1,22 @@
 ﻿@using Business.Abstract
+@using Entities.Concrete
 @{
     ViewData["Title"] = "Home Page";
 }
 @inject IFollowerService _followerService;
 @inject IApplicationUserService _applicationUserSerice;
+@inject IEmojiService _emojiService;
+@inject IImageDetailService _imageDetailService;
 @{
     string id = _applicationUserSerice.GetUserIdByName(User.Identity.Name).Data;
     var images = _followerService.GetFollowedUsers(id).Data;
+    var emojies = _emojiService.GetAll().Data;
+    int counter = 0;
 }
 <div class="d-flex justify-content-center flex-column align-items-center">
     @foreach (var image in images)
     {
+        counter++;
         <div class="card">
             <div class="card-header d-flex justify-content-around">
                 <img style="height:4rem" class="rounded-circle user-pp" src="@Url.Content("images/pp/" +image.PP)" />
@@ -20,9 +26,69 @@
             <div class="card-body">
                 <img class="" src="@Url.Content("images/uploads/" + @image.Image)" />
             </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-10">
+                        <div class="d-flex justify-content-evenly">
+                            @{
+                                var emojisFromImage = _imageDetailService.GetEmojiAmountByImageId(image.ImageId).Data;
+                                foreach (var emojiFromImage in emojisFromImage)
+                                {
+                                    string emojiHtmlId = $"emoji_{@emojiFromImage.ImageId}_{@emojiFromImage.EmojiId}";
+                                    <div id=@emojiHtmlId>&#@emojiFromImage.Path @emojiFromImage.Amount</div>
+                                }
+                        }
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample_@counter" aria-expanded="false" aria-controls="collapseExample_@counter">
+                            <i class="material-icons">arrow_circle_down</i>
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="collapse" id="collapseExample_@counter">
+                <div class="card card-body">
+                    <div class="d-flex  justify-content-evenly">
+                        @foreach (var emoji in emojies)
+                        {
+                            <button class="btn shadow-none" onclick="EmojiButton({UserId:'@id',EmojiId:@emoji.Id,ImageId:@image.ImageId})">&#@emoji.Path</button>
+                        }
+                    </div>
+                </div>
+            </div>
         </div>
         <hr />
     }
     
 
 </div>
+
+<script>
+    function EmojiButton(obj){
+        let url = "/Home/AddEmojiToImage/";
+        let id = "#emoji_" + obj.ImageId + "_" + obj.EmojiId;
+        AjaxPost(url, obj , function(result){
+            let success = result.Success;
+            if(success){
+                let text = $(id).text().split(" ");
+                text[1] = 1*text[1] + 1;
+                $(id).text(text[0]+" "+text[1])
+            }
+        });
+    }
+    
+    function AjaxPost(url , obj , result){
+        $.ajax({
+            type:"post",
+            url:url,
+            data:obj,
+            success:function(func){
+                let _result = jQuery.parseJSON(func);
+                result(_result);
+            }
+        });
+    }
+</script>
+

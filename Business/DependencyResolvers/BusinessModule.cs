@@ -24,6 +24,10 @@ namespace Business.DependencyResolvers
             serviceCollection.AddSingleton<IFollowerService, FollowerManager>();
             serviceCollection.AddSingleton<IImageDal, EfImageDal>();
             serviceCollection.AddSingleton<IImageService, ImageManager>();
+            serviceCollection.AddSingleton<IEmojiDal, EfEmojiDal>();
+            serviceCollection.AddSingleton<IEmojiService, EmojiManager>();
+            serviceCollection.AddSingleton<IImageDetailDal, EfImageDetailDal>();
+            serviceCollection.AddSingleton<IImageDetailService, ImageDetailManager>();
             serviceCollection.AddSingleton<IFileHelper, FileHelper>();
         }
     }

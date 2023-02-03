@@ -24,7 +24,7 @@ namespace DataAccess.Concrete.EntityFramework
                              on f.FollowedUserId equals i.UserId
                              join u in context.Users
                              on f.FollowedUserId equals u.Id
-                             select new FollowedUserDto { Email = u.Email, Image = i.Path, PP = u.PPPath };
+                             select new FollowedUserDto { Email = u.Email, Image = i.Path, PP = u.PPPath , ImageId = i.Id};
                 return result.ToList();
             }
         }

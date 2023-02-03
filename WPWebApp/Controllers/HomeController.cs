@@ -2,6 +2,7 @@
 using Entities.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using WPWebApp.Models;
 
@@ -12,15 +13,18 @@ namespace WPWebApp.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;
         IApplicationUserService _applicationUserService;
+        private readonly IImageDetailService _imageDetailService;
 
         public HomeController
             (SignInManager<ApplicationUser> signInManager, 
             ILogger<HomeController> logger,
-            IApplicationUserService applicationUserService)
+            IApplicationUserService applicationUserService,
+            IImageDetailService imageDetailService)
         {
             _signInManager = signInManager;
             _logger = logger;
             _applicationUserService = applicationUserService;
+            _imageDetailService = imageDetailService;
         }
 
         public IActionResult Index()
@@ -41,6 +45,14 @@ namespace WPWebApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        public IActionResult AddEmojiToImage(ImageDetail imageDetail)
+        {
+            var result = _imageDetailService.Add(imageDetail);
+            var json = JsonConvert.SerializeObject(result);
+            return Json(json);
         }
     }
 }
