@@ -25,14 +25,14 @@
                 <div class="d-flex w-50 justify-content-center">
                     @if(User.Identity.Name == Model.UserName)
                     {
-                        <a class="nav-link d-flex text-info" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="material-icons">settings</i></a>
+                        <a class="nav-link d-flex text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="material-icons">settings</i></a>
                     }
                     else{
                         if(!_followService.IsFollow(_id , id).Success){
                             <a class="btn btn-primary w-50" href="@Url.Action("FollowUser","User",new {UserId=_id , FollowedUserId=id , FollowedUser=Model.UserName})">@Localizer["Follow"]</a>
                         }
                         else{
-                            <a class="btn btn-light w-50" href="@Url.Action("UnFollowUser","User",new {UserId=_id , FollowedUserId=id , FollowedUser=Model.UserName})">@Localizer["UnFollow"]</a>
+                            <a class="btn btn-secondary w-50" href="@Url.Action("UnFollowUser","User",new {UserId=_id , FollowedUserId=id , FollowedUser=Model.UserName})">@Localizer["UnFollow"]</a>
                         }
                     }
                 </div>
