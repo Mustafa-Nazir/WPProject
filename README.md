@@ -56,6 +56,11 @@ The application has role based authorization. There are two users role including
 
 ---
 
+* ## Main Page
+![](ApplicationImages/main1.png)
+
+---
+
 * ## Admin Page
 ![](ApplicationImages/admin1.png)
 ![](ApplicationImages/admin2.png)
